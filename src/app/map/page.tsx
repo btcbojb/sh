@@ -9,6 +9,7 @@ import {
 } from "@react-google-maps/api";
 import { useCallback, useMemo, useState } from "react";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
+import { mapStyle } from "./mapStyle";
 
 interface Place {
   name: string;
@@ -33,6 +34,7 @@ export default function Home() {
       disableDefaultUI: true,
       clickableIcons: true,
       scrollwheel: false,
+      styles: mapStyle
     }),
     []
   );
