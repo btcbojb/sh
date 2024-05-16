@@ -11,10 +11,10 @@ const HeroComponent = () => {
         style={{ animationFillMode: "forwards" }}
       >
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          Explore with Confidence Find Accessible
+          Utforska Borås med självförtroende
           <br />
           <span className="relative bg-gradient-to-r from-primary to-blue-800 bg-clip-text font-extrabold text-transparent">
-            Places on Our Map
+            Vi leder vägen
           </span>
         </h1>
 
@@ -25,14 +25,14 @@ const HeroComponent = () => {
 
         <div className="flex justify-center space-x-2 md:space-x-4 mt-6">
           <Link
-            href="/"
+            href="/map"
             className={cn(
               buttonVariants({ variant: "default", size: "lg" }),
               "px-6 py-2"
             )}
           >
             <MapIcon className="w-4 h-4" />
-            <p className="pl-2">Start Exploring</p>
+            <p className="pl-2">Utforska</p>
           </Link>
         </div>
       </div>
