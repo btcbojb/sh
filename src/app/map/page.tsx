@@ -10,6 +10,10 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import { mapStyle } from "./mapStyle";
+import { Accessibility } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface Place {
   name: string;
@@ -17,6 +21,8 @@ interface Place {
     lat: number;
     lng: number;
   };
+  photo: string;
+  websiteUrl: string;
 }
 const libraries: Libraries = ["places"];
 
@@ -34,7 +40,7 @@ export default function Home() {
       disableDefaultUI: true,
       clickableIcons: true,
       scrollwheel: false,
-      styles: mapStyle
+      styles: mapStyle,
     }),
     []
   );
@@ -56,6 +62,9 @@ export default function Home() {
                   lat: place.geometry!.location!.lat(),
                   lng: place.geometry!.location!.lng(),
                 },
+                photo: place?.photos?.[0].getUrl() || "",
+                websiteUrl: place.website || "",
+
                 // Add any other details you need from the place object
               });
             } else {
@@ -67,7 +76,6 @@ export default function Home() {
     },
     [map]
   );
-
   const handleCloseClick = () => {
     setSelectedPlace(null);
   };
@@ -100,12 +108,39 @@ export default function Home() {
               position={selectedPlace.position}
               onCloseClick={handleCloseClick}
             >
-              <div>
-                <h2>{selectedPlace.name}</h2>
-                <p>Custom information about {selectedPlace.name}</p>
-                <button onClick={() => alert("Button clicked!")}>
-                  Custom Button
-                </button>
+              <div className="w-96 p-4">
+                <img
+                  src={selectedPlace.photo}
+                  className="w-full h-20 object-cover rounded"
+                />
+                <h2 className="text-lg font-semibold mt-2">
+                  {selectedPlace.name}
+                </h2>
+                <div className="flex gap-4 mb-4 mt-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Accessibility key={i} className="w-4 h-4" />
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <Link
+                    href="/map/dynamic"
+                    className={cn(
+                      buttonVariants({ variant: "default", size: "sm" })
+                    )}
+                  >
+                    Check out the place
+                  </Link>
+                  <Link
+                    href={selectedPlace.websiteUrl}
+                    target="__blank"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" })
+                    )}
+                  >
+                    Website
+                  </Link>
+                </div>
               </div>
             </InfoWindow>
           )}
