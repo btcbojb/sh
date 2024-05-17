@@ -1,23 +1,22 @@
 export type Location = {
-  lat: string;
-  long: string;
+  lat?: string;
+  long?: string;
   id: string;
   name: string;
-  avalability: Avalability;
+  availability: Availability;
 };
 
-type Avalability = {
-  Wheelchair: Score;
-  Perfume: Score;
-  Volume: Score;
-  Languages: Score;
-  ElevationDiffrence: Score;
-  Nuts: Score;
-  AuditoryLoop: Score;
-  SignLanguage: Score;
-  Smoke: Score;
-  DogFriendly: Score;
-  Carpet: Score;
+export type Availability = {
+  Wheelchair?: Score;
+  Perfume?: Score;
+  Volume?: Score;
+  Languages?: Score;
+  ElevationDiffrence?: Score;
+  Nuts?: Score;
+  AuditoryLoop?: Score;
+  SignLanguage?: Score;
+  Smoke?: Score;
+  DogFriendly?: Score;
 };
 
 enum Score {
