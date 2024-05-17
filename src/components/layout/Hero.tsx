@@ -10,10 +10,10 @@ const HeroComponent = () => {
         className="container flex max-w-[54rem] opacity-0 animate-fade-up flex-col items-center gap-5 text-center"
         style={{ animationFillMode: "forwards" }}
       >
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+        <h1 className="leading-normal text-5xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-6">
           Utforska Borås med självförtroende
           <br />
-          <span className="relative bg-gradient-to-r from-primary to-blue-800 bg-clip-text font-extrabold text-transparent">
+          <span className="leading-normal relative bg-gradient-to-r from-primary to-green-800 bg-clip-text font-extrabold text-transparent">
             Vi leder vägen
           </span>
         </h1>
