@@ -20,7 +20,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col relative overflow-x-hidden">
         <Navbar />
         <div className="h-full flex-1 relative">{children}</div>
-        <div className="border-t border-muted"></div>
+        <div className=" flex border-t border-muted justify-center pb-20">
+          <img src="./startpage.png" alt="background image" className="rounded-md" />
+        </div>
       </body>
     </html>
   );
