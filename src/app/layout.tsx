@@ -20,6 +20,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col relative overflow-x-hidden">
         <Navbar />
         <div className="h-full flex-1 relative">{children}</div>
+        <div className="border-t border-muted"></div>
       </body>
     </html>
   );
