@@ -17,7 +17,6 @@ export type Availability = {
   SignLanguage?: Score;
   Smoke?: Score;
   DogFriendly?: Score;
-  Carpet?: Score;
 };
 
 enum Score {

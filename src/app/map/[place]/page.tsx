@@ -1,8 +1,9 @@
 import {
   Accessibility,
+  Dog,
   Ear,
   Languages,
-  Layers,
+  Layers2,
   Nut,
   Speech,
   Volume2,
@@ -13,17 +14,17 @@ const tantGron = {
   id: "1",
   name: "Tant Grön",
   availability: {
-    Wheelchair: "green",
-    Perfume: "red",
-    Volume: "red",
-    Languages: "orange",
-    ElevationDiffrence: "gray",
-    Nuts: "gray",
-    AuditoryLoop: "gray",
-    SignLanguage: "gray",
-    Smoke: "gray",
-    DogFriendly: "gray",
-    Carpet: "gray",
+    Wheelchair: "rgba(0, 128, 0, 0.7)", // green
+    Perfume: "rgba(255, 0, 0, 0.7)", // red
+    Volume: "rgba(255, 0, 0, 0.7)", // red
+    Languages: "rgba(255, 165, 0, 0.7)", // orange
+    ElevationDiffrence: "rgba(128, 128, 128, 0.7)", // gray
+    Nuts: "rgba(128, 128, 128, 0.7)", // gray
+    AuditoryLoop: "rgba(128, 128, 128, 0.7)", // gray
+    SignLanguage: "rgba(128, 128, 128, 0.7)", // gray
+    Smoke: "rgba(128, 128, 128, 0.7)", // gray
+    DogFriendly: "rgba(128, 128, 128, 0.7)", // gray
+    Carpet: "rgba(128, 128, 128, 0.7)", // gray
   },
 };
 
@@ -38,7 +39,7 @@ function renderIcon(key: string): JSX.Element {
     case "Languages":
       return <Languages size={64} color="orange" />;
     case "ElevationDiffrence":
-      return <Layers size={64} color="red" />;
+      return <Layers2 size={64} color="red" />;
     case "Nuts":
       return <Nut size={64} color="red" />;
     case "AuditoryLoop":
@@ -48,11 +49,36 @@ function renderIcon(key: string): JSX.Element {
     case "Smoke":
       return <Nut size={64} color="gray" />;
     case "DogFriendly":
-      return <Ear size={64} color="gray" />;
-    case "Carpet":
-      return <Layers size={64} color="gray" />;
+      return <Dog size={64} color="gray" />;
     default:
       return <></>;
+  }
+}
+
+function translateKey(key: string): string {
+  switch (key) {
+    case "Wheelchair":
+      return "Rullstolstillgänglig";
+    case "Perfume":
+      return "Doftfri miljö";
+    case "Volume":
+      return "Ljudnivå";
+    case "Languages":
+      return "Tillgängliga språk";
+    case "ElevationDiffrence":
+      return "Höjdskillnad";
+    case "Nuts":
+      return "Nötfri miljö";
+    case "AuditoryLoop":
+      return "Hörslinga";
+    case "SignLanguage":
+      return "Teckenspråk";
+    case "Smoke":
+      return "Rökfri miljö";
+    case "DogFriendly":
+      return "Hundvänlig";
+    default:
+      return key;
   }
 }
 
@@ -98,8 +124,12 @@ export default function PlacePage() {
                 ([key, value], index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-2 border-2 bg-[#f6f6f6] flex-col rounded-md p-4"
+                    className={`flex items-center space-x-2 border-2 flex-col rounded-md p-4`}
+                    style={{
+                      backgroundColor: `${value}`,
+                    }}
                   >
+                    <p className="text-lg font-medium">{translateKey(key)}</p>
                     {renderIcon(key)}
                     <p>{value === "green" ? ":)" : ":("}</p>
                   </div>
