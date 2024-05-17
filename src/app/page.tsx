@@ -1,16 +1,6 @@
 import HeroComponent from "@/components/layout/Hero";
-import { userTable } from "@/db/schema";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http/driver";
 
 export default function Home() {
-  const sql = neon(process.env.DATABASE_URL!);
-  const db = drizzle(sql);
-
-  const results = db.select().from(userTable);
-
-  console.log(results);
-
   return (
     <div>
       <HeroComponent />
