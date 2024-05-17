@@ -47,7 +47,7 @@ const PlacesAutocomplete = ({
   return (
     <div className="hidden md:block absolute top-24 z-10 w-1/3 right-1/3">
       <input
-        className="w-full p-2 rounded-full border border-slate-900"
+        className="w-full p-3 rounded-full border border-slate-900"
         value={value}
         disabled={!ready}
         onChange={(e) => setValue(e.target.value)}
