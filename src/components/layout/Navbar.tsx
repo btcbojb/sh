@@ -54,7 +54,7 @@ const Navbar = () => {
                     <DrawerClose asChild>
                       <Link href="/">
                         <DrawerTitle className="font-bold tracking-wide text-2xl uppercase">
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-800">
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-black-800">
                             Includer
                           </span>
                         </DrawerTitle>
@@ -87,7 +87,7 @@ const Navbar = () => {
           <div className="flex justify-center">
             <Link href={"/"}>
               <div className="font-bold tracking-wide text-xl uppercase">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-800">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-black">
                   Includer
                 </span>
               </div>

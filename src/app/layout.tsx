@@ -6,8 +6,8 @@ import Navbar from "@/components/layout/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BTC BOJB",
-  description: "Borås Tech Challenge Band of Jonas Brothers",
+  title: "Includer ",
+  description: "Utforska Borås med självförtroende - Vi leder vägen",
 };
 
 export default function RootLayout({
