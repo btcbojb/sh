@@ -121,22 +121,19 @@ type Place = {
 export default function PlacePage() {
   const { place } = useParams();
   const [placeData, setPlaceData] = useState<Place | null>(null);
+
   const [dataTrigger, setDataTrigger] = useState(Date.now());
+
   useEffect(() => {
     const fetchData = async () => {
       if (!place) return;
 
-      const sql = neon(process.env.DATABASE_URL!);
-      const db = drizzle(sql);
+      const response = await fetch(`/api/getData/${place}`, {
+        method: "GET",
+        cache: "no-store",
+      });
 
-      const data = await db
-        .select()
-        .from(placeTable)
-        .where(eq(placeTable.placeId, place as string));
-
-      if (!data[0]) {
-        return;
-      }
+      const data = await response.json();
 
       setPlaceData(data[0]);
     };
@@ -145,31 +142,18 @@ export default function PlacePage() {
   }, [place, dataTrigger]);
 
   const handleUpvote = async () => {
-    const dbconnect = neon(process.env.DATABASE_URL!);
-    const db = drizzle(dbconnect);
-
-    const prevUpvoteCount = await db
-      .select()
-      .from(placeTable)
-      .where(eq(placeTable.placeId, place as string));
-
-    await db.update(placeTable).set({
-      wheelchairUpvotes: prevUpvoteCount[0].wheelchairUpvotes! + 1,
+    await fetch("/api/upvote", {
+      method: "POST",
+      body: JSON.stringify(place),
     });
 
     setDataTrigger(Date.now());
   };
 
   const handleDownvote = async () => {
-    const dbconnect = neon(process.env.DATABASE_URL!);
-    const db = drizzle(dbconnect);
-    const prevDownCount = await db
-      .select()
-      .from(placeTable)
-      .where(eq(placeTable.placeId, place as string));
-
-    await db.update(placeTable).set({
-      wheelchairDownvotes: prevDownCount[0].wheelchairDownvotes! + 1,
+    await fetch("/api/downvote", {
+      method: "POST",
+      body: JSON.stringify(place),
     });
 
     setDataTrigger(Date.now());

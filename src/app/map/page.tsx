@@ -98,41 +98,14 @@ function Home() {
               placeId: place.place_id || "",
             });
 
+            await fetch("/api/connection", {
+              body: JSON.stringify(place),
+              method: "POST",
+            });
+
             if (!place) {
               throw new Error("Place details request failed");
             }
-
-            const sql = neon(process.env.DATABASE_URL!);
-            const db = drizzle(sql);
-
-            const placeInDb = await db
-              .select()
-              .from(placeTable)
-              .where(eq(placeTable.placeId, place.place_id || ""));
-
-            if (placeInDb.length >= 1) {
-              return;
-            }
-
-            await db.insert(placeTable).values({
-              name: place.name || "",
-              placeId: placeId,
-              // website: "random",
-              // lat: place.geometry!.location!.lat().toString(),
-              // lng: place.geometry!.location!.lng().toString(),
-              // photo: place?.photos?.[0].getUrl() || "",
-              wheelchair: 0,
-              perfume: 0,
-              volume: 0,
-              languages: 0,
-              elevationDifference: 0,
-              nuts: 0,
-              auditoryLoop: 0,
-              signLanguage: 0,
-              smoke: 0,
-              dogFriendly: 0,
-              carpet: 0,
-            });
           } catch (error) {
             console.error(error);
           }
@@ -152,7 +125,6 @@ function Home() {
 
   return (
     <div>
-
       <PlacesAutocomplete
         onAddressSelect={(address: string) => {
           getGeocode({ address: address }).then((results) => {
@@ -175,7 +147,6 @@ function Home() {
           <InfoWindow
             position={selectedPlace.position}
             onCloseClick={handleCloseClick}
-
           >
             <div className="w-96 p-2">
               <img
@@ -201,7 +172,7 @@ function Home() {
                 >
                   Mer info
                 </Link>
-                {selectedPlace.websiteUrl &&
+                {selectedPlace.websiteUrl && (
                   <Link
                     href={selectedPlace.websiteUrl}
                     target="__blank"
@@ -211,14 +182,13 @@ function Home() {
                   >
                     Hemsida
                   </Link>
-                }
+                )}
               </div>
             </div>
-          </InfoWindow >
-        )
-        }
-      </GoogleMap >
-    </div >
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </div>
   );
 }
 
