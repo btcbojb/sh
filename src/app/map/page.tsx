@@ -8,7 +8,7 @@ import {
   type Libraries,
 } from "@react-google-maps/api";
 import { drizzle } from "drizzle-orm/neon-http/driver";
-import { Accessibility } from "lucide-react";
+import { Accessibility, Ear, Languages, Nut, Speech } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { mapStyle } from "./mapStyle";
@@ -175,8 +175,9 @@ function Home() {
           <InfoWindow
             position={selectedPlace.position}
             onCloseClick={handleCloseClick}
+
           >
-            <div className="w-96 p-4">
+            <div className="w-96 p-2">
               <img
                 src={selectedPlace.photo}
                 className="w-full h-20 object-cover rounded"
@@ -185,9 +186,10 @@ function Home() {
                 {selectedPlace.name}
               </h2>
               <div className="flex gap-4 mb-4 mt-2">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Accessibility key={i} className="w-4 h-4" />
-                ))}
+                <Accessibility className="w-6 h-6" />
+                <Ear className="w-6 h-6" />
+                <Languages className="w-6 h-6" />
+                <Speech className="w-6 h-6" />
               </div>
 
               <div className="flex gap-2">
@@ -197,17 +199,19 @@ function Home() {
                     buttonVariants({ variant: "default", size: "sm" })
                   )}
                 >
-                  Check out the place
+                  Mer info
                 </Link>
-                <Link
-                  href={selectedPlace.websiteUrl}
-                  target="__blank"
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "sm" })
-                  )}
-                >
-                  Website
-                </Link>
+                {selectedPlace.websiteUrl &&
+                  <Link
+                    href={selectedPlace.websiteUrl}
+                    target="__blank"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" })
+                    )}
+                  >
+                    Hemsida
+                  </Link>
+                }
               </div>
             </div>
           </InfoWindow >
