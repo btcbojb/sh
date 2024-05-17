@@ -50,7 +50,7 @@ const PlacesAutocomplete = ({
         value={value}
         disabled={!ready}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Borås big city"
+        placeholder=""
       />
 
       {status === "OK" && <ul>{renderSuggestions()}</ul>}
