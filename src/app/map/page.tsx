@@ -1,20 +1,22 @@
 "use client";
 
-import PlacesAutocomplete from "@/components/autocomplete";
+import { neon } from "@neondatabase/serverless";
 import {
   GoogleMap,
-  LoadScript,
   InfoWindow,
+  LoadScript,
   type Libraries,
 } from "@react-google-maps/api";
-import { useCallback, useMemo, useState } from "react";
-import { getGeocode, getLatLng } from "use-places-autocomplete";
-import { mapStyle } from "./mapStyle";
+import { drizzle } from "drizzle-orm/neon-http/driver";
 import { Accessibility } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useCallback, useMemo, useState } from "react";
+import { mapStyle } from "./mapStyle";
 
+import { buttonVariants } from "@/components/ui/button";
+import { placeTable } from "@/db/schema";
+import { cn } from "@/lib/utils";
+import { eq } from "drizzle-orm";
 interface Place {
   name: string;
   position: {
@@ -23,6 +25,7 @@ interface Place {
   };
   photo: string;
   websiteUrl: string;
+  placeId: string;
 }
 const libraries: Libraries = ["places"];
 
@@ -46,7 +49,7 @@ export default function Home() {
   );
 
   const handleMapClick = useCallback(
-    (event: google.maps.MapMouseEvent) => {
+    async (event: google.maps.MapMouseEvent) => {
       if ("placeId" in event) {
         const placeId = (event as google.maps.IconMouseEvent).placeId;
         if (placeId) {
@@ -54,39 +57,89 @@ export default function Home() {
 
           const service = new google.maps.places.PlacesService(map!);
 
-          service.getDetails({ placeId: placeId }, (place, status) => {
-            if (status === google.maps.places.PlacesServiceStatus.OK && place) {
-              setSelectedPlace({
-                name: place.name || "",
-                position: {
-                  lat: place.geometry!.location!.lat(),
-                  lng: place.geometry!.location!.lng(),
-                },
-                photo: place?.photos?.[0].getUrl() || "",
-                websiteUrl: place.website || "",
-
-                // Add any other details you need from the place object
+          const getPlaceDetails = () =>
+            new Promise<google.maps.places.PlaceResult>((resolve, reject) => {
+              service.getDetails({ placeId: placeId }, (place, status) => {
+                if (
+                  status === google.maps.places.PlacesServiceStatus.OK &&
+                  place
+                ) {
+                  resolve(place);
+                } else {
+                  reject(`Place details request failed: ${status}`);
+                }
               });
-            } else {
-              console.error("Place details request failed:", status);
+            });
+
+          try {
+            const place = await getPlaceDetails();
+
+            setSelectedPlace({
+              name: place.name || "",
+              position: {
+                lat: place.geometry!.location!.lat(),
+                lng: place.geometry!.location!.lng(),
+              },
+              photo: place?.photos?.[0].getUrl() || "",
+              websiteUrl: place.website || "",
+              placeId: place.place_id || "",
+            });
+
+            if (!place) {
+              throw new Error("Place details request failed");
             }
-          });
+
+            const sql = neon(process.env.DATABASE_URL!);
+            const db = drizzle(sql);
+
+            const placeInDb = await db
+              .select()
+              .from(placeTable)
+              .where(eq(placeTable.placeId, place.place_id || ""));
+
+            if (placeInDb.length >= 1) {
+              return;
+            }
+
+            await db.insert(placeTable).values({
+              name: place.name || "",
+              placeId: placeId,
+              // website: "random",
+              // lat: place.geometry!.location!.lat().toString(),
+              // lng: place.geometry!.location!.lng().toString(),
+              // photo: place?.photos?.[0].getUrl() || "",
+              wheelchair: 0,
+              perfume: 0,
+              volume: 0,
+              languages: 0,
+              elevationDifference: 0,
+              nuts: 0,
+              auditoryLoop: 0,
+              signLanguage: 0,
+              smoke: 0,
+              dogFriendly: 0,
+              carpet: 0,
+            });
+          } catch (error) {
+            console.error(error);
+          }
         }
       }
     },
     [map]
   );
+
   const handleCloseClick = () => {
     setSelectedPlace(null);
   };
 
   return (
-    <LoadScript
-      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string}
-      libraries={libraries}
-    >
-      <div className="flex mt-40">
-        <PlacesAutocomplete
+    <div className="">
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string}
+        libraries={libraries}
+      >
+        {/* <PlacesAutocomplete
           onAddressSelect={(address: string) => {
             getGeocode({ address: address }).then((results) => {
               const { lat, lng } = getLatLng(results[0]);
@@ -94,58 +147,60 @@ export default function Home() {
               setLng(lng);
             });
           }}
-        />
-        <GoogleMap
-          options={mapOptions}
-          zoom={14}
-          center={mapCenter}
-          mapContainerStyle={{ width: "100%", height: "600px" }}
-          onLoad={(map) => setMap(map)}
-          onClick={handleMapClick}
-        >
-          {selectedPlace && (
-            <InfoWindow
-              position={selectedPlace.position}
-              onCloseClick={handleCloseClick}
-            >
-              <div className="w-96 p-4">
-                <img
-                  src={selectedPlace.photo}
-                  className="w-full h-20 object-cover rounded"
-                />
-                <h2 className="text-lg font-semibold mt-2">
-                  {selectedPlace.name}
-                </h2>
-                <div className="flex gap-4 mb-4 mt-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Accessibility key={i} className="w-4 h-4" />
-                  ))}
-                </div>
+        /> */}
+        <div className="flex justify-center items-center h-screen">
+          <GoogleMap
+            options={mapOptions}
+            zoom={14}
+            center={mapCenter}
+            mapContainerStyle={{ width: "100%", height: "600px" }}
+            onLoad={(map) => setMap(map)}
+            onClick={handleMapClick}
+          >
+            {selectedPlace && (
+              <InfoWindow
+                position={selectedPlace.position}
+                onCloseClick={handleCloseClick}
+              >
+                <div className="w-96 p-4">
+                  <img
+                    src={selectedPlace.photo}
+                    className="w-full h-20 object-cover rounded"
+                  />
+                  <h2 className="text-lg font-semibold mt-2">
+                    {selectedPlace.name}
+                  </h2>
+                  <div className="flex gap-4 mb-4 mt-2">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Accessibility key={i} className="w-4 h-4" />
+                    ))}
+                  </div>
 
-                <div className="flex gap-2">
-                  <Link
-                    href="/map/dynamic"
-                    className={cn(
-                      buttonVariants({ variant: "default", size: "sm" })
-                    )}
-                  >
-                    Check out the place
-                  </Link>
-                  <Link
-                    href={selectedPlace.websiteUrl}
-                    target="__blank"
-                    className={cn(
-                      buttonVariants({ variant: "outline", size: "sm" })
-                    )}
-                  >
-                    Website
-                  </Link>
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/map/${selectedPlace.placeId}`}
+                      className={cn(
+                        buttonVariants({ variant: "default", size: "sm" })
+                      )}
+                    >
+                      Check out the place
+                    </Link>
+                    <Link
+                      href={selectedPlace.websiteUrl}
+                      target="__blank"
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "sm" })
+                      )}
+                    >
+                      Website
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-      </div>
-    </LoadScript>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </div>
+      </LoadScript>
+    </div>
   );
 }

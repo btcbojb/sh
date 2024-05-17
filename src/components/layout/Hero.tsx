@@ -19,8 +19,8 @@ const HeroComponent = () => {
         </h1>
 
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-lg sm:leading-6">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae ut aut
-          perferendis repudiandae debitis quidem voluptatum pariatur.
+        Med en vision om att alla, oavsett funktionsnedsättning eller andra hinder, ska kunna ta del av stadens fulla utbud,
+        gör Includer Borås tillgängligt för alla. Appen främjar inkludering där varje individ känner sig välkommen och värderad.
         </p>
 
         <div className="flex justify-center space-x-2 md:space-x-4 mt-6">

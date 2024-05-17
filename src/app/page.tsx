@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <HeroComponent />
-      <section className="pb-20 lg:mt-12 px-6">
+      <section className="pb-20 lg:mt-14 px-6">
         <img
           src="/bg.png"
           alt="bg of project"

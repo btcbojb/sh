@@ -1,9 +1,104 @@
 {
-  "id": "8e15a968-d295-404e-909e-6e4e9ed3ced2",
+  "id": "676b906c-bcdc-4938-a41b-225364f2ddfe",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
+    "public.places": {
+      "name": "places",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "gen_random_uuid()"
+        },
+        "placeId": {
+          "name": "placeId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wheelchair": {
+          "name": "wheelchair",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "perfume": {
+          "name": "perfume",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "volume": {
+          "name": "volume",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "languages": {
+          "name": "languages",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "elevationDifference": {
+          "name": "elevationDifference",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nuts": {
+          "name": "nuts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "auditoryLoop": {
+          "name": "auditoryLoop",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "signLanguage": {
+          "name": "signLanguage",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "smoke": {
+          "name": "smoke",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dogFriendly": {
+          "name": "dogFriendly",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carpet": {
+          "name": "carpet",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.user": {
       "name": "user",
       "schema": "",

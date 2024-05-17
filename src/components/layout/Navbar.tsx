@@ -16,14 +16,14 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { id: "home", label: "Home", href: "/" },
-  { id: "Map", label: "Map", href: "/map" },
+  { id: "map", label: "Map", href: "/map" },
 ];
 
 const Navbar = () => {
   const router = usePathname();
   return (
-    <div className="fixed z-50 items-center justify-center flex top-5 w-full">
-      <div className="w-full max-w-7xl rounded-full shadow-lg h-12 md:h-16 py-2 px-6 mx-8 backdrop-blur-[8px] supports-[backdrop-filter]:bg-background/80 border border-muted flex items-center ">
+    <div className="fixed z-50 items-center backdrop-blur-[8px] supports-[backdrop-filter]:bg-white/90 justify-center top-0 flex w-full border-b">
+      <div className="w-full container mx-auto h-10 md:h-16 py-2 flex items-center ">
         <div className="grid grid-cols-3 w-full items-center">
           <div className="hidden md:flex justify-start relative rounded-md gap-x-2 ">
             {navigation.map((link) => (
@@ -33,7 +33,7 @@ const Navbar = () => {
                 className={
                   router === link.href
                     ? "text-primary-foreground relative rounded-md px-3 py-1.5 text-sm font-medium transition focus-visible:outline-primary focus-visible:outline bg-primary"
-                    : "hover:opacity-50 relative rounded-md px-3 py-1.5 text-sm font-medium transition focus-visible:outline-primary focus-visible:outline"
+                    : "hover:opacity-60 relative rounded-md px-3 py-1.5 text-sm font-medium transition focus-visible:outline-primary focus-visible:outline bg-secondary"
                 }
               >
                 <span className="relative">{link.label}</span>
@@ -76,6 +76,30 @@ const Navbar = () => {
                         </DrawerClose>
                       </div>
                     ))}
+                    <div className="text-center mx-auto">
+                      <DrawerClose asChild>
+                        <Link
+                          href="/login"
+                          className={cn(
+                            buttonVariants({ variant: "outline", size: "sm" }),
+                            "px-4 mr-4"
+                          )}
+                        >
+                          Login
+                        </Link>
+                      </DrawerClose>
+                      <DrawerClose asChild>
+                        <Link
+                          href="/login"
+                          className={cn(
+                            buttonVariants({ variant: "default", size: "sm" }),
+                            "px-4"
+                          )}
+                        >
+                          Sign Up
+                        </Link>
+                      </DrawerClose>
+                    </div>
                     <div className="flex justify-center items-center space-x-4">
                       {/* <ThemeToggle /> */}
                     </div>
@@ -93,11 +117,11 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
-          <div className="flex justify-end items-center space-x-4">
+          <div className="hidden justify-end items-center space-x-4  md:flex">
             <Link
               href="/login"
               className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
+                buttonVariants({ variant: "outline", size: "sm" }),
                 "px-4"
               )}
             >
@@ -106,7 +130,7 @@ const Navbar = () => {
             <Link
               href="/login"
               className={cn(
-                buttonVariants({ variant: "default", size: "lg" }),
+                buttonVariants({ variant: "default", size: "sm" }),
                 "px-4"
               )}
             >
