@@ -14,7 +14,7 @@ const PlacesAutocomplete = ({
   } = usePlacesAutocomplete({
     requestOptions: {
       componentRestrictions: { country: "se" },
-      region: "boras",
+
     },
     debounce: 300,
     cache: 24 * 60 * 60,
@@ -45,15 +45,16 @@ const PlacesAutocomplete = ({
   };
 
   return (
-    <div>
+    <div className="hidden md:block absolute top-24 z-10 w-1/3 right-1/3">
       <input
+        className="w-full p-2 rounded-full border border-slate-900"
         value={value}
         disabled={!ready}
         onChange={(e) => setValue(e.target.value)}
         placeholder=""
       />
 
-      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+      {status === "OK" && <ul className="bg-white w-11/12 mx-auto p-2 rounded-b-sm">{renderSuggestions()}</ul>}
     </div>
   );
 };

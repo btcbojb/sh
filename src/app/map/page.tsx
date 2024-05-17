@@ -48,9 +48,12 @@ function Home() {
 
   const mapOptions = useMemo<google.maps.MapOptions>(
     () => ({
-      disableDefaultUI: true,
+      fullscreenControl: false,
+      streetViewControl: false,
+      minZoom: 13,
       clickableIcons: true,
       scrollwheel: false,
+      mapTypeControl: false,
       styles: mapStyle,
     }),
     []
@@ -148,7 +151,8 @@ function Home() {
   }
 
   return (
-    <div className="mt-20">
+    <div>
+
       <PlacesAutocomplete
         onAddressSelect={(address: string) => {
           getGeocode({ address: address }).then((results) => {
@@ -163,7 +167,7 @@ function Home() {
         options={mapOptions}
         zoom={14}
         center={mapCenter}
-        mapContainerStyle={{ width: "100%", height: "600px" }}
+        mapContainerStyle={{ width: "100%", height: "100vh" }}
         onLoad={(map) => setMap(map)}
         onClick={handleMapClick}
       >
@@ -206,10 +210,11 @@ function Home() {
                 </Link>
               </div>
             </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </div>
+          </InfoWindow >
+        )
+        }
+      </GoogleMap >
+    </div >
   );
 }
 

@@ -5,7 +5,7 @@ export default function Home() {
     <div>
       <HeroComponent />
       <section className="pb-20 lg:mt-14 px-6">
-      
+     
       </section>
     </div>
   );
