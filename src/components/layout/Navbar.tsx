@@ -22,7 +22,7 @@ const navigation = [
 const Navbar = () => {
   const router = usePathname();
   return (
-    <div className="fixed z-50 items-center backdrop-blur-[8px] supports-[backdrop-filter]:bg-white/90 justify-center top-0 flex w-full border-b">
+    <div className="fixed z-50 items-center backdrop-blur-[8px] py-2 supports-[backdrop-filter]:bg-white/90 justify-center top-0 flex w-full border-b">
       <div className="w-full container mx-auto h-10 md:h-16 py-2 flex items-center ">
         <div className="grid grid-cols-3 w-full items-center">
           <div className="hidden md:flex justify-start relative rounded-md gap-x-2 ">

@@ -1,5 +1,5 @@
 {
-  "id": "676b906c-bcdc-4938-a41b-225364f2ddfe",
+  "id": "08fa58a0-f2b0-4854-a414-516f3f150caa",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -27,11 +27,37 @@
           "primaryKey": false,
           "notNull": true
         },
+        "website": {
+          "name": "website",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "photo": {
+          "name": "photo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "wheelchair": {
           "name": "wheelchair",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "wheelchair_upvotes": {
+          "name": "wheelchair_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "wheelchair_downvotes": {
+          "name": "wheelchair_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         },
         "perfume": {
           "name": "perfume",
@@ -39,11 +65,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "perfume_upvotes": {
+          "name": "perfume_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "perfume_downvotes": {
+          "name": "perfume_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "volume": {
           "name": "volume",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "volume_upvotes": {
+          "name": "volume_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "volume_downvotes": {
+          "name": "volume_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         },
         "languages": {
           "name": "languages",
@@ -51,11 +105,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "languages_upvotes": {
+          "name": "languages_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "languages_downvotes": {
+          "name": "languages_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "elevationDifference": {
           "name": "elevationDifference",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "elevationDifference_upvotes": {
+          "name": "elevationDifference_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "elevationDifference_downvotes": {
+          "name": "elevationDifference_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         },
         "nuts": {
           "name": "nuts",
@@ -63,11 +145,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "nuts_upvotes": {
+          "name": "nuts_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "nuts_downvotes": {
+          "name": "nuts_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "auditoryLoop": {
           "name": "auditoryLoop",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "auditoryLoop_upvotes": {
+          "name": "auditoryLoop_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "auditoryLoop_downvotes": {
+          "name": "auditoryLoop_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         },
         "signLanguage": {
           "name": "signLanguage",
@@ -75,11 +185,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "signLanguage_upvotes": {
+          "name": "signLanguage_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "signLanguage_downvotes": {
+          "name": "signLanguage_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "smoke": {
           "name": "smoke",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "smoke_upvotes": {
+          "name": "smoke_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "smoke_downvotes": {
+          "name": "smoke_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         },
         "dogFriendly": {
           "name": "dogFriendly",
@@ -87,11 +225,39 @@
           "primaryKey": false,
           "notNull": false
         },
+        "dogFriendly_upvotes": {
+          "name": "dogFriendly_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "dogFriendly_downvotes": {
+          "name": "dogFriendly_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "carpet": {
           "name": "carpet",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "carpet_upvotes": {
+          "name": "carpet_upvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "carpet_downvotes": {
+          "name": "carpet_downvotes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
         }
       },
       "indexes": {},
